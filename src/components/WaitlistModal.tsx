@@ -62,11 +62,10 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
       }}
     >
       <div
-        className="glass-panel"
+        className="glass-panel waitlist-modal-card"
         style={{
           width: '100%',
           maxWidth: '520px',
-          padding: '36px',
           position: 'relative',
           border: '1px solid rgba(200, 134, 10, 0.6)',
           boxShadow: '0 0 50px rgba(200, 134, 10, 0.35)',
@@ -121,9 +120,10 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>
                   PREFERRED STARTING CURRENCY
                 </label>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div className="waitlist-currency-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                   <button
                     type="button"
+                    className="waitlist-currency-btn"
                     onClick={() => setCurrency('NGN')}
                     style={{
                       background: currency === 'NGN' ? 'rgba(0, 135, 81, 0.3)' : 'rgba(30, 30, 60, 0.4)',
@@ -145,6 +145,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                   </button>
                   <button
                     type="button"
+                    className="waitlist-currency-btn"
                     onClick={() => setCurrency('USD')}
                     style={{
                       background: currency === 'USD' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(30, 30, 60, 0.4)',
@@ -226,6 +227,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
 
             {/* Voucher Box */}
             <div
+              className="waitlist-voucher-box"
               style={{
                 background: 'rgba(10, 10, 26, 0.9)',
                 border: '1px dashed #FFD700',
@@ -235,9 +237,10 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 marginBottom: '24px',
+                gap: '12px',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '18px', fontWeight: 700, color: '#FFD700', letterSpacing: '1px' }}>
+              <span className="voucher-code-text" style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#FFD700', letterSpacing: '1px' }}>
                 {voucherCode}
               </span>
               <button
@@ -254,6 +257,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                   gap: '6px',
                   fontSize: '12px',
                   fontWeight: 600,
+                  flexShrink: 0,
                 }}
               >
                 <Copy size={14} />

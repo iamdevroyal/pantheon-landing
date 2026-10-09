@@ -42,9 +42,8 @@ export const PantheonAtlas: React.FC = () => {
     <div style={{ position: 'relative' }}>
       {/* Filters Toolbar */}
       <div
-        className="ornate-card"
+        className="ornate-card atlas-filter-toolbar"
         style={{
-          padding: '18px 24px',
           marginBottom: '32px',
           display: 'flex',
           flexWrap: 'wrap',
@@ -54,7 +53,7 @@ export const PantheonAtlas: React.FC = () => {
         }}
       >
         {/* Continent Pills */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', maxWidth: '100%' }}>
+        <div className="atlas-continent-pills" style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', maxWidth: '100%', scrollbarWidth: 'none' }}>
           <button
             onClick={() => {
               sound.playChime(600);
@@ -111,7 +110,7 @@ export const PantheonAtlas: React.FC = () => {
         </div>
 
         {/* Rarity Selector */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflowX: 'auto' }}>
+        <div className="atlas-rarity-pills" style={{ display: 'flex', alignItems: 'center', gap: '6px', overflowX: 'auto', scrollbarWidth: 'none' }}>
           {rarities.map((r) => {
             const isSelected = selectedRarityFilter === r;
             return (
@@ -143,9 +142,9 @@ export const PantheonAtlas: React.FC = () => {
 
       {/* Cards Grid */}
       <div
+        className="atlas-deities-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
           gap: '24px',
         }}
       >
@@ -295,11 +294,10 @@ export const PantheonAtlas: React.FC = () => {
           onClick={() => setActiveDeityModal(null)}
         >
           <div
-            className="ornate-card"
+            className="ornate-card deity-modal-card"
             style={{
               width: '100%',
               maxWidth: '560px',
-              padding: '36px',
               border: `2px solid ${activeDeityModal.primaryColor}`,
               boxShadow: `0 0 50px ${activeDeityModal.primaryColor}50`,
               position: 'relative',
@@ -343,7 +341,7 @@ export const PantheonAtlas: React.FC = () => {
               </span>
             </div>
 
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '32px', color: '#FFF', fontWeight: 900, marginBottom: '6px' }}>
+            <h3 className="deity-modal-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', fontWeight: 900, marginBottom: '6px' }}>
               {activeDeityModal.name}
             </h3>
 

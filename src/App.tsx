@@ -53,11 +53,10 @@ export function App() {
 
       {/* ── TOP ANNOUNCEMENT TICKER ── */}
       <div
+        className="announcement-ticker"
         style={{
           background: 'linear-gradient(90deg, #101026 0%, #C8860A 50%, #101026 100%)',
-          padding: '8px 16px',
           textAlign: 'center',
-          fontSize: '12px',
           fontWeight: 700,
           color: '#FFF',
           letterSpacing: '0.8px',
@@ -74,22 +73,16 @@ export function App() {
       <header
         className="ornate-card site-header"
         style={{
-          margin: '14px 20px',
-          padding: '12px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
           position: 'sticky',
           top: '12px',
           zIndex: 100,
         }}
       >
         {/* Brand Logo with Glowing Emblem */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="header-brand" style={{ display: 'flex', alignItems: 'center' }}>
           <div
+            className="header-logo-icon"
             style={{
-              width: '42px',
-              height: '42px',
               borderRadius: '50%',
               background: 'linear-gradient(135deg, #FFD700 0%, #C8860A 100%)',
               display: 'flex',
@@ -97,23 +90,34 @@ export function App() {
               justifyContent: 'center',
               color: '#070714',
               boxShadow: '0 0 20px rgba(255, 215, 0, 0.6), inset 0 1px 0 #FFF',
+              flexShrink: 0,
             }}
           >
-            <Globe2 size={24} />
+            <Globe2 className="brand-globe-icon" />
           </div>
-          <div>
+          <div className="header-brand-text">
             <div
+              className="header-brand-title"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: '18px',
-                letterSpacing: '1.5px',
+                letterSpacing: '1.2px',
                 color: '#FFF',
+                lineHeight: 1.1,
               }}
             >
               PANTHEON GACHA
             </div>
-            <div style={{ fontSize: '10px', color: 'var(--accent-light)', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 700 }}>
+            <div
+              className="header-brand-subtitle"
+              style={{
+                fontSize: '10px',
+                color: 'var(--accent-light)',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+              }}
+            >
               Continental Globe Edition
             </div>
           </div>
@@ -150,17 +154,16 @@ export function App() {
         </nav>
 
         {/* Right Controls: Audio Ambient Switch, Currency Toggle, & CTA */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="header-actions" style={{ display: 'flex', alignItems: 'center' }}>
           {/* Ambient Music Toggle */}
           <button
             onClick={handleToggleAudio}
             title={isAudioPlaying ? 'Mute Celestial Drone' : 'Enable Celestial Ambient Drone'}
+            className="header-audio-btn"
             style={{
               background: isAudioPlaying ? 'rgba(200, 134, 10, 0.3)' : 'rgba(25, 25, 55, 0.6)',
               border: isAudioPlaying ? '1px solid #FFD700' : '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '50%',
-              width: '36px',
-              height: '36px',
               color: isAudioPlaying ? '#FFD700' : 'var(--text-muted)',
               cursor: 'pointer',
               display: 'flex',
@@ -168,20 +171,20 @@ export function App() {
               justifyContent: 'center',
               transition: 'all 0.25s',
               boxShadow: isAudioPlaying ? '0 0 12px rgba(255, 215, 0, 0.4)' : 'none',
+              flexShrink: 0,
             }}
           >
-            {isAudioPlaying ? <Volume2 size={18} /> : <VolumeX size={18} />}
+            {isAudioPlaying ? <Volume2 size={16} /> : <VolumeX size={16} />}
           </button>
 
           <CurrencyToggle currency={currency} onCurrencyChange={setCurrency} />
 
           <button
-            className="btn-gold"
+            className="btn-gold header-cta-btn"
             onClick={() => {
               sound.playChime(900);
               setIsModalOpen(true);
             }}
-            style={{ padding: '9px 18px', fontSize: '12px' }}
           >
             CLAIM {bonusLabel}
           </button>
@@ -219,9 +222,9 @@ export function App() {
         </p>
 
         {/* Hero Action CTAs */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '52px' }}>
+        <div className="hero-cta-group" style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '52px' }}>
           <button
-            className="btn-gold"
+            className="btn-gold hero-cta-btn"
             onClick={() => {
               sound.playThunder();
               sound.playChime(1000);
@@ -235,7 +238,7 @@ export function App() {
           <a
             href="#globe"
             onClick={() => sound.playChime(700)}
-            className="btn-secondary"
+            className="btn-secondary hero-cta-btn"
             style={{ textDecoration: 'none' }}
           >
             <Compass size={19} />
@@ -244,45 +247,36 @@ export function App() {
         </div>
 
         {/* Divine Power Badges HUD */}
-        <div
-          className="ornate-card"
-          style={{
-            padding: '24px 32px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-            gap: '24px',
-            textAlign: 'left',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{ color: '#FFD700' }}><Zap size={30} /></div>
+        <div className="ornate-card hero-metrics-hud">
+          <div className="hud-item" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="hud-icon" style={{ color: '#FFD700', flexShrink: 0 }}><Zap size={28} /></div>
             <div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '20px', color: '#FFF' }}>10,000x Max</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Mythic Multipliers & Windfalls</div>
+              <div className="hud-title" style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#FFF' }}>10,000x Max</div>
+              <div className="hud-desc" style={{ color: 'var(--text-muted)' }}>Mythic Multipliers & Windfalls</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{ color: '#00E676' }}><Crown size={30} /></div>
+          <div className="hud-item" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="hud-icon" style={{ color: '#00E676', flexShrink: 0 }}><Crown size={28} /></div>
             <div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '20px', color: '#FFF' }}>₦ NGN & $ USD</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Dual Sacred Treasury Vaults</div>
+              <div className="hud-title" style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#FFF' }}>₦ NGN & $ USD</div>
+              <div className="hud-desc" style={{ color: 'var(--text-muted)' }}>Dual Sacred Treasury Vaults</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{ color: '#80A4FF' }}><Globe2 size={30} /></div>
+          <div className="hud-item" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="hud-icon" style={{ color: '#80A4FF', flexShrink: 0 }}><Globe2 size={28} /></div>
             <div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '20px', color: '#FFF' }}>6 Continents</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>250+ Authentic Global Gods</div>
+              <div className="hud-title" style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#FFF' }}>6 Continents</div>
+              <div className="hud-desc" style={{ color: 'var(--text-muted)' }}>250+ Authentic Global Gods</div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{ color: '#00CED1' }}><Scale size={30} /></div>
+          <div className="hud-item" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="hud-icon" style={{ color: '#00CED1', flexShrink: 0 }}><Scale size={28} /></div>
             <div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '20px', color: '#FFF' }}>The Scales of Fate</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Cryptographically Sealed Destiny</div>
+              <div className="hud-title" style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#FFF' }}>Scales of Fate</div>
+              <div className="hud-desc" style={{ color: 'var(--text-muted)' }}>Cryptographically Sealed Destiny</div>
             </div>
           </div>
         </div>
@@ -291,6 +285,7 @@ export function App() {
       {/* ── 3D CENTERPIECE: THE LIVING GLOBE ── */}
       <section
         id="globe"
+        className="landing-section"
         style={{
           padding: '60px 20px',
           maxWidth: '1240px',
@@ -304,7 +299,7 @@ export function App() {
           <div style={{ fontSize: '11px', color: 'var(--accent-light)', letterSpacing: '2.5px', textTransform: 'uppercase', fontWeight: 800 }}>
             SACRED ASTROLABE OF THE SEVEN REALMS
           </div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '36px', color: '#FFF', marginTop: '6px', fontWeight: 900 }}>
+          <h2 className="section-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', marginTop: '6px', fontWeight: 900 }}>
             The Living Oracle Globe
           </h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '15px', maxWidth: '680px', margin: '8px auto 0', fontFamily: 'var(--font-lore)' }}>
@@ -337,27 +332,20 @@ export function App() {
 
         {/* Selected Continent Deity Lore Showcase Card */}
         <div
-          className="ornate-card"
+          className="ornate-card continent-showcase-card"
           style={{
             marginTop: '22px',
-            padding: '28px 32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '24px',
             borderLeft: `6px solid ${selectedContinent.color}`,
             background: 'linear-gradient(135deg, rgba(16, 16, 40, 0.95) 0%, rgba(8, 8, 20, 0.98) 100%)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '22px', flex: '1 1 500px' }}>
-            <div style={{ position: 'relative', flexShrink: 0 }}>
+          <div className="showcase-identity" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="showcase-god-avatar" style={{ position: 'relative', flexShrink: 0 }}>
               <img
                 src={selectedContinent.godImage}
                 alt={selectedContinent.featuredGod}
+                className="showcase-god-img"
                 style={{
-                  width: '94px',
-                  height: '94px',
                   borderRadius: '16px',
                   border: '2px solid #FFD700',
                   boxShadow: `0 0 25px ${selectedContinent.color}70`,
@@ -365,11 +353,11 @@ export function App() {
                 }}
               />
               <span
+                className="showcase-god-badge"
                 style={{
                   position: 'absolute',
                   bottom: '-6px',
                   right: '-6px',
-                  fontSize: '20px',
                   background: '#070714',
                   borderRadius: '50%',
                   padding: '2px 4px',
@@ -380,35 +368,36 @@ export function App() {
               </span>
             </div>
 
-            <div>
-              <div style={{ fontSize: '11px', color: selectedContinent.color, fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <div className="showcase-text">
+              <div className="showcase-realm-label" style={{ fontSize: '11px', color: selectedContinent.color, fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase' }}>
                 ACTIVE REALM: {selectedContinent.name}
               </div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '24px', color: '#FFF', marginTop: '2px', fontWeight: 900 }}>
+              <div className="showcase-god-name" style={{ fontFamily: 'var(--font-display)', color: '#FFF', fontWeight: 900 }}>
                 {selectedContinent.featuredGod}
               </div>
-              <div style={{ fontSize: '13px', color: '#FFD700', fontWeight: 700, marginTop: '2px' }}>
+              <div className="showcase-tagline" style={{ color: '#FFD700', fontWeight: 700 }}>
                 {selectedContinent.tagline}
               </div>
-              <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginTop: '8px', maxWidth: '720px', lineHeight: '1.65', fontFamily: 'var(--font-lore)' }}>
+              <p className="showcase-lore" style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-lore)' }}>
                 {selectedContinent.lore}
               </p>
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '26px', fontWeight: 900, color: '#FFD700' }}>
-              {selectedContinent.deityCount} IMMORTALS
+          <div className="showcase-action">
+            <div className="showcase-count-box">
+              <div className="showcase-count" style={{ fontFamily: 'var(--font-mono)', fontWeight: 900, color: '#FFD700' }}>
+                {selectedContinent.deityCount} IMMORTALS
+              </div>
+              <div className="showcase-count-label" style={{ color: 'var(--text-dim)', letterSpacing: '0.5px' }}>Summonable Pantheon Realm</div>
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-dim)', letterSpacing: '0.5px' }}>Summonable Pantheon Realm</div>
             <button
-              className="btn-gold"
+              className="btn-gold showcase-summon-btn"
               onClick={() => {
                 sound.playThunder();
                 const sim = document.getElementById('simulator');
                 sim?.scrollIntoView({ behavior: 'smooth' });
               }}
-              style={{ marginTop: '6px', padding: '10px 18px', fontSize: '12px' }}
             >
               <Flame size={15} />
               PLEDGE OFFERING TO {selectedContinent.name.toUpperCase()}
@@ -420,6 +409,7 @@ export function App() {
       {/* ── INTERACTIVE OFFERING SHRINE SIMULATOR ── */}
       <section
         id="simulator"
+        className="landing-section"
         style={{
           padding: '40px 20px 60px',
           maxWidth: '1240px',
@@ -439,6 +429,7 @@ export function App() {
       {/* ── PANTHEON GRIMOIRE & DEITY ATLAS ── */}
       <section
         id="atlas"
+        className="landing-section"
         style={{
           padding: '60px 20px',
           maxWidth: '1240px',
@@ -452,7 +443,7 @@ export function App() {
           <div style={{ fontSize: '11px', color: 'var(--accent-light)', letterSpacing: '2.5px', textTransform: 'uppercase', fontWeight: 800 }}>
             SACRED LINEAGE
           </div>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '36px', color: '#FFF', marginTop: '6px', fontWeight: 900 }}>
+          <h2 className="section-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', marginTop: '6px', fontWeight: 900 }}>
             The Pantheon Grimoire Atlas
           </h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '15px', maxWidth: '620px', margin: '8px auto 0', fontFamily: 'var(--font-lore)' }}>
@@ -466,6 +457,7 @@ export function App() {
       {/* ── DUAL CURRENCY & FINANCIAL RAILS ── */}
       <section
         id="payments"
+        className="landing-section"
         style={{
           padding: '60px 20px',
           maxWidth: '1240px',
@@ -476,9 +468,8 @@ export function App() {
         }}
       >
         <div
-          className="ornate-card"
+          className="ornate-card treasury-container-card"
           style={{
-            padding: '52px 40px',
             border: '2px solid var(--border-gold)',
             background: 'linear-gradient(135deg, rgba(16, 16, 40, 0.9) 0%, rgba(8, 8, 20, 0.95) 100%)',
           }}
@@ -487,7 +478,7 @@ export function App() {
             <div style={{ fontSize: '11px', color: 'var(--accent-light)', letterSpacing: '2.5px', textTransform: 'uppercase', fontWeight: 800 }}>
               THE ROYAL TREASURY
             </div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '34px', color: '#FFF', marginTop: '6px', fontWeight: 900 }}>
+            <h2 className="section-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', marginTop: '6px', fontWeight: 900 }}>
               Two Realms of Sovereign Gold & Fortune
             </h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '15px', maxWidth: '680px', margin: '8px auto 0', fontFamily: 'var(--font-lore)' }}>
@@ -496,19 +487,19 @@ export function App() {
           </div>
 
           <div
+            className="treasury-grid"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
               gap: '28px',
             }}
           >
             {/* NGN Rail Card */}
             <div
+              className="treasury-rail-card"
               style={{
                 background: 'linear-gradient(135deg, rgba(0, 135, 81, 0.15) 0%, rgba(10, 25, 20, 0.8) 100%)',
                 border: '1px solid rgba(0, 230, 118, 0.4)',
                 borderRadius: '16px',
-                padding: '32px',
                 boxShadow: '0 8px 30px rgba(0, 135, 81, 0.15)',
               }}
             >
@@ -533,11 +524,11 @@ export function App() {
 
             {/* USD Rail Card */}
             <div
+              className="treasury-rail-card"
               style={{
                 background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(25, 25, 30, 0.8) 100%)',
                 border: '1px solid rgba(255, 215, 0, 0.4)',
                 borderRadius: '16px',
-                padding: '32px',
                 boxShadow: '0 8px 30px rgba(255, 215, 0, 0.12)',
               }}
             >
@@ -565,6 +556,7 @@ export function App() {
 
       {/* ── FINAL PRE-REGISTRATION CTA BANNER ── */}
       <section
+        className="landing-section"
         style={{
           padding: '60px 20px',
           maxWidth: '1240px',
@@ -575,15 +567,14 @@ export function App() {
         }}
       >
         <div
-          className="ornate-card divine-pulse"
+          className="ornate-card divine-pulse cta-banner-card"
           style={{
-            padding: '56px 36px',
             textAlign: 'center',
             background: 'linear-gradient(135deg, rgba(200, 134, 10, 0.28) 0%, rgba(20, 20, 50, 0.85) 100%)',
             border: '2px solid #FFD700',
           }}
         >
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(30px, 4.5vw, 46px)', color: '#FFF', fontWeight: 900, marginBottom: '14px' }}>
+          <h2 className="section-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', fontWeight: 900, marginBottom: '14px' }}>
             The Heavens Tremble. Awaken Your Deity.
           </h2>
           <p style={{ maxWidth: '640px', margin: '0 auto 32px', fontSize: '16px', color: '#E0E0FF', lineHeight: '1.65', fontFamily: 'var(--font-lore)' }}>
@@ -591,13 +582,12 @@ export function App() {
           </p>
 
           <button
-            className="btn-gold"
+            className="btn-gold cta-banner-btn"
             onClick={() => {
               sound.playThunder();
               sound.playChime(1000);
               setIsModalOpen(true);
             }}
-            style={{ padding: '18px 40px', fontSize: '16px' }}
           >
             <Sparkles size={20} />
             ENTER THE SANCTUM & CLAIM {bonusLabel} BONUS
@@ -607,6 +597,7 @@ export function App() {
 
       {/* ── FOOTER ── */}
       <footer
+        className="footer-container"
         style={{
           marginTop: 'auto',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
@@ -617,6 +608,7 @@ export function App() {
         }}
       >
         <div
+          className="footer-inner"
           style={{
             maxWidth: '1240px',
             margin: '0 auto',
@@ -638,7 +630,7 @@ export function App() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '28px', fontSize: '13px', color: 'var(--text-muted)', fontFamily: 'var(--font-display)' }}>
+          <div className="footer-links" style={{ display: 'flex', gap: '28px', fontSize: '13px', color: 'var(--text-muted)', fontFamily: 'var(--font-display)' }}>
             <a href="#globe" onClick={() => sound.playChime(600)} style={{ color: 'inherit', textDecoration: 'none' }}>The Globe</a>
             <a href="#atlas" onClick={() => sound.playChime(700)} style={{ color: 'inherit', textDecoration: 'none' }}>Grimoire</a>
             <a href="#payments" onClick={() => sound.playChime(800)} style={{ color: 'inherit', textDecoration: 'none' }}>Dual Currency</a>

@@ -526,6 +526,7 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
 
       {/* Floating Cultural Tag Banner */}
       <div
+        className="globe-tag-banner"
         style={{
           position: 'absolute',
           top: '14px',
@@ -539,9 +540,8 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
         }}
       >
         <div
-          className="ornate-card"
+          className="ornate-card globe-tag-card"
           style={{
-            padding: '8px 16px',
             border: `1px solid ${selectedContinent.color}`,
             boxShadow: `0 0 25px ${selectedContinent.color}50`,
             display: 'inline-flex',
@@ -554,9 +554,8 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
           <img
             src={selectedContinent.godImage}
             alt={selectedContinent.featuredGod}
+            className="globe-tag-img"
             style={{
-              width: '42px',
-              height: '42px',
               borderRadius: '50%',
               border: '2px solid #FFD700',
               boxShadow: `0 0 16px ${selectedContinent.color}`,
@@ -594,6 +593,7 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
 
       {/* Mobile-Friendly Continent Selector Carousel Bar */}
       <div
+        className="globe-continents-carousel"
         style={{
           position: 'absolute',
           bottom: '12px',
@@ -605,7 +605,6 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
           width: 'calc(100% - 24px)',
           maxWidth: '640px',
           overflowX: 'auto',
-          padding: '6px 8px',
           borderRadius: '30px',
           background: 'rgba(7, 7, 20, 0.88)',
           backdropFilter: 'blur(16px)',
@@ -620,6 +619,7 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
           return (
             <button
               key={c.id}
+              className={`globe-continent-pill ${isSelected ? 'selected' : ''}`}
               onClick={() => handleContinentClick(c)}
               style={{
                 background: isSelected 
@@ -627,10 +627,8 @@ export const GlobePreview: React.FC<GlobePreviewProps> = ({
                   : 'transparent',
                 color: isSelected ? '#FFFFFF' : '#B0AFD0',
                 border: isSelected ? `1px solid ${c.color}` : '1px solid transparent',
-                padding: '6px 14px',
                 borderRadius: '20px',
                 fontFamily: 'var(--font-display)',
-                fontSize: '11px',
                 fontWeight: 700,
                 cursor: 'pointer',
                 display: 'flex',

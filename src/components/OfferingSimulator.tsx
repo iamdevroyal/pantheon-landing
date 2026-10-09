@@ -113,9 +113,8 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
 
   return (
     <div
-      className={`ornate-card ${isShaking ? 'camera-shake' : ''}`}
+      className={`ornate-card simulator-container-card ${isShaking ? 'camera-shake' : ''}`}
       style={{
-        padding: '36px',
         position: 'relative',
         overflow: 'hidden',
         background: 'linear-gradient(135deg, rgba(16, 16, 38, 0.95) 0%, rgba(7, 7, 20, 0.98) 100%)',
@@ -144,7 +143,7 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
               SACRED OFFERING SHRINE · LIVE SIMULATOR
             </span>
           </div>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '26px', color: '#FFF', marginTop: '4px' }}>
+          <h3 className="simulator-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', marginTop: '4px' }}>
             Pledge Offering to {selectedContinent.name}
           </h3>
         </div>
@@ -171,10 +170,8 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
 
       {/* Offering Bet Tier Grid */}
       <div
+        className="tier-grid"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-          gap: '14px',
           marginBottom: '28px',
         }}
       >
@@ -183,6 +180,7 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
           return (
             <button
               key={tier.id}
+              className={`tier-btn ${isSelected ? 'selected' : ''}`}
               onClick={() => {
                 sound.playChime(750);
                 setSelectedTier(tier.id as any);
@@ -220,14 +218,12 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
       {/* Primary Summon Action CTA */}
       <div style={{ textAlign: 'center', marginBottom: revealDeity ? '28px' : '0' }}>
         <button
-          className="btn-gold"
+          className="btn-gold summon-main-btn"
           onClick={handlePledge}
           disabled={isPulling}
           style={{
             width: '100%',
             maxWidth: '420px',
-            fontSize: '16px',
-            padding: '18px',
             opacity: isPulling ? 0.75 : 1,
           }}
         >
@@ -248,7 +244,7 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
       {/* 3D Holographic Deity Reveal Card */}
       {revealDeity && payoutResult && (
         <div
-          className="holo-card"
+          className="holo-card reveal-card"
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
           style={{
@@ -262,10 +258,10 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
             borderRadius: '16px',
           }}
         >
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
+          <div className="reveal-card-body" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
             {/* Left: Lore & Deity Identity */}
-            <div style={{ flex: '1 1 320px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+            <div className="reveal-card-lore" style={{ flex: '1 1 300px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', flexWrap: 'wrap' }}>
                 <span
                   style={{
                     background: revealDeity.primaryColor,
@@ -287,7 +283,7 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
                 </span>
               </div>
 
-              <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '32px', color: '#FFF', fontWeight: 900, letterSpacing: '0.5px' }}>
+              <h4 className="reveal-card-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', fontWeight: 900, letterSpacing: '0.5px' }}>
                 {revealDeity.name}
               </h4>
 
@@ -302,6 +298,7 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
 
             {/* Right: Divine Payout Gauge */}
             <div
+              className="reveal-card-payout"
               style={{
                 textAlign: 'center',
                 background: payoutResult.win ? 'rgba(76, 175, 80, 0.12)' : 'rgba(231, 76, 60, 0.12)',
@@ -317,9 +314,9 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
               </div>
 
               <div
+                className="reveal-card-payout-val"
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '34px',
                   fontWeight: 900,
                   color: payoutResult.win ? '#FFD700' : '#BBB',
                   margin: '6px 0',

@@ -334,30 +334,874 @@ body {
   animation: coinFlip 0.5s ease-out;
 }
 
-/* ── RESPONSIVE TWEAKS ── */
-@media (max-width: 900px) {
+/* ── BASE RESPONSIVE COMPONENT CLASSES ── */
+.site-header {
+  margin: 14px 20px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  gap: 12px;
+}
+
+.header-logo-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.brand-globe-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.header-brand-title {
+  font-size: 18px;
+}
+
+.header-brand-subtitle {
+  display: block;
+}
+
+.header-actions {
+  gap: 12px;
+}
+
+.header-audio-btn {
+  width: 36px;
+  height: 36px;
+}
+
+.header-cta-btn {
+  padding: 9px 18px;
+  font-size: 12px;
+}
+
+/* Currency Toggle Defaults */
+.currency-btn {
+  padding: 6px 14px;
+  font-size: 11px;
+  gap: 6px;
+}
+
+.currency-flag {
+  font-size: 13px;
+}
+
+.currency-symbol {
+  font-weight: 800;
+}
+
+.currency-label-code {
+  display: inline;
+}
+
+/* Jackpot Ticker Panel Defaults */
+.jackpot-ticker-panel {
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.jackpot-item {
+  gap: 12px;
+}
+
+.jackpot-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.jackpot-title {
+  font-size: 11px;
+}
+
+.jackpot-value {
+  font-size: 16px;
+}
+
+/* Hero Metrics HUD Defaults */
+.hero-metrics-hud {
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 24px;
+  text-align: left;
+}
+
+.hud-item {
+  gap: 14px;
+}
+
+.hud-title {
+  font-size: 20px;
+}
+
+.hud-desc {
+  font-size: 12px;
+}
+
+/* Continent Showcase Card Defaults */
+.continent-showcase-card {
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.showcase-identity {
+  gap: 22px;
+  flex: 1 1 500px;
+}
+
+.showcase-god-img {
+  width: 94px;
+  height: 94px;
+}
+
+.showcase-god-badge {
+  font-size: 20px;
+}
+
+.showcase-god-name {
+  font-size: 24px;
+  margin-top: 2px;
+}
+
+.showcase-tagline {
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.showcase-lore {
+  font-size: 14px;
+  margin-top: 8px;
+  max-width: 720px;
+  line-height: 1.65;
+}
+
+.showcase-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.showcase-count {
+  font-size: 26px;
+}
+
+.showcase-count-label {
+  font-size: 11px;
+}
+
+.showcase-summon-btn {
+  margin-top: 6px;
+  padding: 10px 18px;
+  font-size: 12px;
+}
+
+/* ── COMPONENT RESPONSIVE DEFAULTS ── */
+
+/* Announcement Ticker */
+.announcement-ticker {
+  padding: 8px 16px;
+  font-size: 12px;
+}
+
+/* Section & Headings */
+.section-title {
+  font-size: clamp(24px, 4.2vw, 36px);
+  font-weight: 900;
+}
+
+.hero-cta-btn {
+  font-size: 15px;
+}
+
+/* Treasury Vault Cards Defaults */
+.treasury-container-card {
+  padding: 52px 40px;
+}
+
+.treasury-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+.treasury-rail-card {
+  padding: 32px;
+}
+
+/* CTA Banner Defaults */
+.cta-banner-card {
+  padding: 56px 36px;
+}
+
+.cta-banner-btn {
+  padding: 18px 40px;
+  font-size: 16px;
+}
+
+/* Simulator Defaults */
+.simulator-container-card {
+  padding: 36px;
+}
+
+.simulator-title {
+  font-size: 26px;
+}
+
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+.summon-main-btn {
+  font-size: 16px;
+  padding: 18px;
+}
+
+.reveal-card {
+  padding: 32px;
+}
+
+.reveal-card-title {
+  font-size: 32px;
+}
+
+.reveal-card-payout-val {
+  font-size: 34px;
+}
+
+/* Atlas Grimoire Defaults */
+.atlas-filter-toolbar {
+  padding: 18px 24px;
+}
+
+.atlas-deities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.deity-modal-card {
+  padding: 36px;
+}
+
+.deity-modal-title {
+  font-size: 32px;
+}
+
+/* Waitlist Modal Defaults */
+.waitlist-modal-card {
+  padding: 36px;
+}
+
+.waitlist-currency-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.waitlist-voucher-box {
+  padding: 16px 20px;
+}
+
+.voucher-code-text {
+  font-size: 18px;
+}
+
+/* Globe Overlays Defaults */
+.globe-tag-card {
+  padding: 8px 16px;
+}
+
+.globe-tag-img {
+  width: 42px;
+  height: 42px;
+}
+
+.globe-continents-carousel {
+  padding: 6px 8px;
+}
+
+.globe-continent-pill {
+  padding: 6px 14px;
+  font-size: 11px;
+}
+
+/* ── EXHAUSTIVE RESPONSIVE BREAKPOINTS ── */
+
+/* Tablet (<= 992px) */
+@media (max-width: 992px) {
   .nav-desktop {
     display: none !important;
   }
+  .treasury-container-card {
+    padding: 38px 24px !important;
+  }
+  .cta-banner-card {
+    padding: 44px 24px !important;
+  }
 }
 
+/* Mobile Landscape & Tablet (<= 768px) */
+@media (max-width: 768px) {
+  .site-header {
+    margin: 8px 12px !important;
+    padding: 8px 14px !important;
+  }
+  .header-brand {
+    gap: 8px !important;
+  }
+  .header-logo-icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .brand-globe-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .header-brand-title {
+    font-size: 15px !important;
+  }
+  .header-brand-subtitle {
+    display: none !important;
+  }
+  .header-actions {
+    gap: 8px !important;
+  }
+  .header-cta-btn {
+    padding: 7px 12px !important;
+    font-size: 11px !important;
+  }
+  .currency-btn {
+    padding: 4px 10px !important;
+    font-size: 10px !important;
+    gap: 4px !important;
+  }
+  .currency-label-code {
+    display: none !important;
+  }
+
+  .landing-section {
+    padding: 44px 16px !important;
+  }
+  .section-title {
+    font-size: 28px !important;
+  }
+
+  .continent-showcase-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 20px 18px !important;
+    gap: 18px !important;
+  }
+  .showcase-identity {
+    flex: 1 1 100% !important;
+    gap: 16px !important;
+  }
+  .showcase-god-img {
+    width: 76px !important;
+    height: 76px !important;
+  }
+  .showcase-god-name {
+    font-size: 20px !important;
+  }
+  .showcase-lore {
+    font-size: 13px !important;
+  }
+  .showcase-action {
+    width: 100% !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .showcase-count {
+    font-size: 20px !important;
+  }
+  .showcase-summon-btn {
+    width: auto !important;
+    padding: 8px 14px !important;
+    font-size: 11px !important;
+  }
+
+  .treasury-container-card {
+    padding: 32px 18px !important;
+  }
+  .treasury-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .treasury-rail-card {
+    padding: 24px 18px !important;
+  }
+
+  .simulator-container-card {
+    padding: 26px 18px !important;
+  }
+  .simulator-title {
+    font-size: 22px !important;
+  }
+  .tier-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .summon-main-btn {
+    padding: 15px !important;
+    font-size: 14px !important;
+  }
+  .reveal-card {
+    padding: 22px 16px !important;
+  }
+  .reveal-card-body {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 18px !important;
+  }
+  .reveal-card-title {
+    font-size: 26px !important;
+  }
+  .reveal-card-payout {
+    min-width: unset !important;
+    width: 100% !important;
+    padding: 18px !important;
+  }
+  .reveal-card-payout-val {
+    font-size: 28px !important;
+  }
+
+  .atlas-filter-toolbar {
+    padding: 14px 16px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+  }
+  .atlas-deities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+    gap: 18px !important;
+  }
+  .deity-modal-card {
+    padding: 24px 18px !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+  }
+  .deity-modal-title {
+    font-size: 26px !important;
+  }
+
+  .waitlist-modal-card {
+    padding: 24px 18px !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+  }
+
+  .cta-banner-card {
+    padding: 40px 20px !important;
+  }
+  .cta-banner-btn {
+    padding: 15px 28px !important;
+    font-size: 14px !important;
+  }
+
+  .footer-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 18px !important;
+  }
+  .footer-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 16px !important;
+  }
+}
+
+/* Mobile Standard (<= 640px) */
 @media (max-width: 640px) {
   .site-header {
-    margin: 8px 10px !important;
-    padding: 10px 14px !important;
+    margin: 6px 8px !important;
+    padding: 8px 10px !important;
+    top: 6px !important;
   }
-  .hero-section {
-    padding: 40px 14px 24px !important;
+  .header-brand-title {
+    font-size: 14px !important;
+    letter-spacing: 0.8px !important;
   }
-  .section-container {
-    padding: 36px 14px !important;
+  .header-logo-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .brand-globe-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .header-actions {
+    gap: 6px !important;
+  }
+  .header-audio-btn {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .header-cta-btn {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.3px !important;
+  }
+  .currency-toggle-pill {
+    padding: 2px !important;
+  }
+  .currency-btn {
+    padding: 4px 7px !important;
+    font-size: 10px !important;
+    gap: 3px !important;
+  }
+  .currency-flag {
+    font-size: 12px !important;
+  }
+  .currency-label-code {
+    display: none !important;
+  }
+
+  .announcement-ticker {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+  .landing-section {
+    padding: 34px 12px !important;
+  }
+  .section-title {
+    font-size: 24px !important;
+  }
+
+  .hero-cta-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .hero-cta-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px !important;
+    font-size: 13px !important;
+  }
+  
+  /* Jackpot Ticker Responsive Grid */
+  .jackpot-ticker-panel {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    padding: 10px 8px !important;
+  }
+  .jackpot-divider {
+    display: none !important;
+  }
+  .jackpot-item {
+    gap: 6px !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  .jackpot-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .jackpot-title {
+    font-size: 9px !important;
+    letter-spacing: 0.5px !important;
+  }
+  .jackpot-value {
+    font-size: 13px !important;
+  }
+
+  /* Hero Metrics HUD 2x2 Grid */
+  .hero-metrics-hud {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    padding: 16px 12px !important;
+  }
+  .hud-item {
+    gap: 10px !important;
+  }
+  .hud-title {
+    font-size: 15px !important;
+  }
+  .hud-desc {
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Globe Card */
+  .globe-container-card {
+    height: 380px !important;
+  }
+
+  /* Globe Overlays */
+  .globe-tag-banner {
+    top: 10px !important;
+    width: calc(100% - 20px) !important;
+  }
+  .globe-tag-card {
+    padding: 6px 10px !important;
+    gap: 8px !important;
+  }
+  .globe-tag-img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .globe-continents-carousel {
+    bottom: 8px !important;
+    width: calc(100% - 16px) !important;
+    padding: 4px 6px !important;
+  }
+  .globe-continent-pill {
+    padding: 5px 10px !important;
+    font-size: 10px !important;
+    gap: 4px !important;
+  }
+
+  /* Showcase Card on Small Screen */
+  .showcase-action {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .showcase-count-box {
+    text-align: left !important;
+  }
+  .showcase-summon-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* Treasury Cards */
+  .treasury-container-card {
+    padding: 22px 14px !important;
+    border-radius: 12px !important;
+  }
+  .treasury-rail-card {
+    padding: 20px 14px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Offering Simulator */
+  .ornate-card {
+    border-radius: 12px !important;
+  }
+  .simulator-container-card {
+    padding: 20px 14px !important;
+    border-radius: 12px !important;
+  }
+  .simulator-title {
+    font-size: 19px !important;
+  }
+  .tier-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .tier-btn {
+    padding: 12px 8px !important;
+  }
+  .summon-main-btn {
+    padding: 14px 12px !important;
+    font-size: 13px !important;
+  }
+  .reveal-card {
+    padding: 18px 12px !important;
+    border-radius: 12px !important;
+  }
+  .reveal-card-title {
+    font-size: 22px !important;
+  }
+  .reveal-card-payout {
+    padding: 14px !important;
+  }
+  .reveal-card-payout-val {
+    font-size: 24px !important;
+  }
+
+  /* Atlas Grimoire */
+  .atlas-deities-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .atlas-continent-pills button {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+  }
+
+  /* Waitlist Modal */
+  .waitlist-currency-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .waitlist-currency-btn {
+    padding: 8px 6px !important;
+    font-size: 11px !important;
+  }
+
+  /* CTA Banner */
+  .cta-banner-card {
+    padding: 32px 14px !important;
+    border-radius: 12px !important;
+  }
+  .cta-banner-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px 16px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Small Mobile (<= 400px) */
+@media (max-width: 400px) {
+  .site-header {
+    margin: 4px 4px !important;
+    padding: 6px 8px !important;
+  }
+  .header-brand-title {
+    font-size: 11.5px !important;
+    letter-spacing: 0.4px !important;
+  }
+  .header-logo-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .brand-globe-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .header-actions {
+    gap: 4px !important;
+  }
+  .header-audio-btn {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .header-cta-btn {
+    padding: 5px 8px !important;
+    font-size: 10px !important;
+  }
+  .currency-btn {
+    padding: 3px 5px !important;
+    font-size: 9px !important;
+    gap: 2px !important;
+  }
+  .currency-flag {
+    font-size: 11px !important;
+  }
+  .currency-symbol {
+    font-size: 9px !important;
+  }
+
+  .announcement-ticker {
+    font-size: 10px !important;
+    padding: 5px 8px !important;
+  }
+  .section-title {
+    font-size: 21px !important;
+  }
+
+  .jackpot-ticker-panel {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .jackpot-item {
+    flex-direction: row !important;
+    text-align: left !important;
   }
   .globe-container-card {
-    height: 400px !important;
+    height: 350px !important;
   }
-  .btn-gold, .btn-secondary {
-    padding: 12px 20px !important;
-    font-size: 13px !important;
+
+  .tier-grid {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  .tier-btn {
+    padding: 10px 8px !important;
+  }
+
+  .waitlist-currency-grid {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+  .waitlist-voucher-box {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    text-align: center !important;
+  }
+  .waitlist-voucher-box button {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .voucher-code-text {
+    font-size: 14px !important;
+    word-break: break-all !important;
+  }
+
+  .globe-tag-banner {
+    top: 6px !important;
+  }
+  .globe-tag-card {
+    padding: 4px 8px !important;
+  }
+  .globe-continents-carousel {
+    bottom: 6px !important;
+  }
+}
+
+/* Extra Small Mobile (<= 360px) */
+@media (max-width: 360px) {
+  .site-header {
+    margin: 2px 2px !important;
+    padding: 4px 6px !important;
+  }
+  .header-brand-title {
+    font-size: 10px !important;
+    letter-spacing: 0.2px !important;
+  }
+  .header-logo-icon {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .brand-globe-icon {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .header-actions {
+    gap: 3px !important;
+  }
+  .header-audio-btn {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .header-cta-btn {
+    padding: 4px 6px !important;
+    font-size: 8.5px !important;
+  }
+  .currency-btn {
+    padding: 2px 4px !important;
+    font-size: 8px !important;
+    gap: 1px !important;
+  }
+  .currency-flag {
+    font-size: 10px !important;
+  }
+  .currency-symbol {
+    font-size: 8px !important;
   }
 }
 

@@ -45,23 +45,16 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
 
   return (
     <div
-      className="glass-panel"
+      className="glass-panel jackpot-ticker-panel"
       style={{
-        padding: '16px 24px',
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        gap: '20px',
         border: '1px solid rgba(200, 134, 10, 0.3)',
       }}
     >
       {/* Local Pool */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div className="jackpot-item" style={{ display: 'flex', alignItems: 'center' }}>
         <div
+          className="jackpot-icon"
           style={{
-            width: '36px',
-            height: '36px',
             borderRadius: '50%',
             background: 'rgba(200, 134, 10, 0.15)',
             border: '1px solid rgba(200, 134, 10, 0.4)',
@@ -69,28 +62,28 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
             alignItems: 'center',
             justifyContent: 'center',
             color: '#FFD700',
+            flexShrink: 0,
           }}
         >
           <Compass size={18} />
         </div>
-        <div>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+        <div className="jackpot-info">
+          <div className="jackpot-title" style={{ color: 'var(--text-muted)', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
             LOCAL {continentName.toUpperCase()} POOL
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '16px', color: '#FFD700' }}>
+          <div className="jackpot-value" style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#FFD700' }}>
             {formatAmount(localPool)}
           </div>
         </div>
       </div>
 
-      <div style={{ width: '1px', height: '32px', background: 'rgba(255, 255, 255, 0.1)' }} />
+      <div className="jackpot-divider" style={{ width: '1px', height: '32px', background: 'rgba(255, 255, 255, 0.1)' }} />
 
       {/* Continental Pool */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div className="jackpot-item" style={{ display: 'flex', alignItems: 'center' }}>
         <div
+          className="jackpot-icon"
           style={{
-            width: '36px',
-            height: '36px',
             borderRadius: '50%',
             background: 'rgba(68, 102, 204, 0.15)',
             border: '1px solid rgba(68, 102, 204, 0.4)',
@@ -98,28 +91,28 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
             alignItems: 'center',
             justifyContent: 'center',
             color: '#80A4FF',
+            flexShrink: 0,
           }}
         >
           <Globe size={18} />
         </div>
-        <div>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-            SHARED CONTINENTAL POOL
+        <div className="jackpot-info">
+          <div className="jackpot-title" style={{ color: 'var(--text-muted)', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
+            CONTINENTAL POOL
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '16px', color: '#80A4FF' }}>
+          <div className="jackpot-value" style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#80A4FF' }}>
             {formatAmount(contPool)}
           </div>
         </div>
       </div>
 
-      <div style={{ width: '1px', height: '32px', background: 'rgba(255, 255, 255, 0.1)' }} />
+      <div className="jackpot-divider" style={{ width: '1px', height: '32px', background: 'rgba(255, 255, 255, 0.1)' }} />
 
       {/* World Pool (Grand Jackpot) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div className="jackpot-item" style={{ display: 'flex', alignItems: 'center' }}>
         <div
+          className="jackpot-icon"
           style={{
-            width: '36px',
-            height: '36px',
             borderRadius: '50%',
             background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(200, 134, 10, 0.2) 100%)',
             border: '1px solid #FFD700',
@@ -128,17 +121,18 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
             justifyContent: 'center',
             color: '#FFF',
             boxShadow: '0 0 15px rgba(255, 215, 0, 0.4)',
+            flexShrink: 0,
           }}
         >
           <Sparkles size={18} />
         </div>
-        <div>
-          <div style={{ fontSize: '11px', color: '#FFD700', letterSpacing: '1.5px', fontWeight: 700, textTransform: 'uppercase' }}>
+        <div className="jackpot-info">
+          <div className="jackpot-title" style={{ color: '#FFD700', letterSpacing: '1px', fontWeight: 700, textTransform: 'uppercase' }}>
             ✨ GRAND WORLD JACKPOT
           </div>
           <div
-            className="gold-gradient-text"
-            style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '19px' }}
+            className="gold-gradient-text jackpot-value"
+            style={{ fontFamily: 'var(--font-mono)', fontWeight: 800 }}
           >
             {formatAmount(worldPool)}
           </div>
