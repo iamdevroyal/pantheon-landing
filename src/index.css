@@ -541,6 +541,16 @@ body {
   padding: 32px;
 }
 
+.app-download-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.app-download-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 215, 0, 0.5) !important;
+  box-shadow: 0 16px 45px rgba(200, 134, 10, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
 /* CTA Banner Defaults */
 .cta-banner-card {
   padding: 56px 36px;

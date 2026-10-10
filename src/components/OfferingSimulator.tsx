@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import type { Currency } from './CurrencyToggle';
 import type { ContinentData } from '../data/continents';
 import { FEATURED_DEITIES, type DeityPreview } from '../data/deities';
 import confetti from 'canvas-confetti';
@@ -7,48 +6,48 @@ import { sound } from '../utils/audio';
 import { Flame, RotateCcw, Sparkles } from 'lucide-react';
 
 interface OfferingSimulatorProps {
-  currency: Currency;
   selectedContinent: ContinentData;
   onSimulateSpin: (spinning: boolean) => void;
 }
 
+interface RitualTier {
+  id: string;
+  name: string;
+  label: string;
+  detail: string;
+  resonance: string;
+}
+
 export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
-  currency,
   selectedContinent,
   onSimulateSpin,
 }) => {
-  const [selectedTier, setSelectedTier] = useState<'small' | 'medium' | 'large' | 'supreme'>('medium');
+  const [selectedTier, setSelectedTier] = useState<string>('acolyte');
   const [isPulling, setIsPulling] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
   const [revealDeity, setRevealDeity] = useState<DeityPreview | null>(null);
-  const [payoutResult, setPayoutResult] = useState<{ win: boolean; amount: number; multiplier: number } | null>(null);
+  const [manifestationResult, setManifestationResult] = useState<{
+    favored: boolean;
+    resonanceMultiplier: number;
+  } | null>(null);
 
   // 3D Card tilt state
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
-  const tiers = {
-    NGN: [
-      { id: 'small', name: 'Small Offering', amount: 10, label: '₦10', edge: '22% Edge' },
-      { id: 'medium', name: 'Medium Offering', amount: 100, label: '₦100', edge: '18% Edge' },
-      { id: 'large', name: 'Large Offering', amount: 500, label: '₦500', edge: '15% Edge' },
-      { id: 'supreme', name: 'Supreme Offering', amount: 2500, label: '₦2,500', edge: '12% Edge' },
-    ],
-    USD: [
-      { id: 'small', name: 'Small Offering', amount: 0.1, label: '$0.10', edge: '22% Edge' },
-      { id: 'medium', name: 'Medium Offering', amount: 1.0, label: '$1.00', edge: '18% Edge' },
-      { id: 'large', name: 'Large Offering', amount: 5.0, label: '$5.00', edge: '15% Edge' },
-      { id: 'supreme', name: 'Supreme Offering', amount: 25.0, label: '$25.00', edge: '12% Edge' },
-    ],
-  };
+  const RITUAL_TIERS: RitualTier[] = [
+    { id: 'pilgrim', name: "Pilgrim's Rite", label: 'Single Spark', detail: 'Sacred Incense', resonance: '1× Resonance' },
+    { id: 'acolyte', name: "Acolyte's Invocation", label: 'Tri-Flame', detail: 'Temple Offering', resonance: '3× Resonance' },
+    { id: 'priest', name: "High Priest Sigil", label: 'Golden Sigil', detail: 'Consecrated Ankh', resonance: '5× Resonance' },
+    { id: 'avatar', name: 'Supreme Avatar Rite', label: 'Cosmic Astrolabe', detail: 'Celestial Alignment', resonance: '10× Resonance' },
+  ];
 
-  const currentTiers = tiers[currency];
-  const activeBetObj = currentTiers.find((t) => t.id === selectedTier) || currentTiers[1];
+  const activeTierObj = RITUAL_TIERS.find((t) => t.id === selectedTier) || RITUAL_TIERS[1];
 
   const handlePledge = () => {
     if (isPulling) return;
     setIsPulling(true);
     setRevealDeity(null);
-    setPayoutResult(null);
+    setManifestationResult(null);
     onSimulateSpin(true);
     sound.playChime(660);
 
@@ -58,9 +57,8 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
       const poolToPick = continentPool.length > 0 ? continentPool : FEATURED_DEITIES;
       const picked = poolToPick[Math.floor(Math.random() * poolToPick.length)];
 
-      const isWin = Math.random() < 0.8; // 80% win rate preview
-      const mult = isWin ? picked.multiplier : 0;
-      const payout = isWin ? Number((activeBetObj.amount * mult).toFixed(2)) : 0;
+      const isFavored = true;
+      const mult = picked.multiplier;
 
       // Trigger thunder boom & camera shake
       sound.playThunderBoom();
@@ -68,18 +66,16 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
       setTimeout(() => setIsShaking(false), 500);
 
       setRevealDeity(picked);
-      setPayoutResult({ win: isWin, amount: payout, multiplier: mult });
+      setManifestationResult({ favored: isFavored, resonanceMultiplier: mult });
       setIsPulling(false);
       onSimulateSpin(false);
 
-      if (isWin) {
-        confetti({
-          particleCount: 120,
-          spread: 85,
-          origin: { y: 0.65 },
-          colors: ['#FFD700', '#C8860A', '#FFFFFF', '#4CAF50', '#80A4FF'],
-        });
-      }
+      confetti({
+        particleCount: 120,
+        spread: 85,
+        origin: { y: 0.65 },
+        colors: ['#FFD700', '#C8860A', '#FFFFFF', '#4CAF50', '#80A4FF'],
+      });
     }, 2200);
   };
 
@@ -108,8 +104,6 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
       default: return '★';
     }
   };
-
-  const symbol = currency === 'USD' ? '$' : '₦';
 
   return (
     <div
@@ -140,15 +134,15 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ color: '#FFD700' }}><Sparkles size={16} /></span>
             <span style={{ fontSize: '11px', color: 'var(--accent-light)', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 800 }}>
-              SACRED OFFERING SHRINE · LIVE SIMULATOR
+              SACRED OFFERING SHRINE · IN-APP RITUAL PREVIEW
             </span>
           </div>
           <h3 className="simulator-title" style={{ fontFamily: 'var(--font-display)', color: '#FFF', marginTop: '4px' }}>
-            Pledge Offering to {selectedContinent.name}
+            Summon Immortals of {selectedContinent.name}
           </h3>
         </div>
 
-        {/* Currency Indicator Pill */}
+        {/* Free Interactive Preview Pill */}
         <div
           style={{
             background: 'rgba(25, 25, 55, 0.7)',
@@ -161,21 +155,21 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
             gap: '8px',
           }}
         >
-          <span style={{ color: 'var(--text-muted)' }}>Wagering In:</span>
-          <span style={{ color: currency === 'USD' ? '#4CAF50' : '#00A86B', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
-            {currency} ({symbol})
+          <span style={{ color: 'var(--text-muted)' }}>Experience:</span>
+          <span style={{ color: '#FFD700', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+            Free Interactive Demo
           </span>
         </div>
       </div>
 
-      {/* Offering Bet Tier Grid */}
+      {/* Offering Ritual Tier Grid */}
       <div
         className="tier-grid"
         style={{
           marginBottom: '28px',
         }}
       >
-        {currentTiers.map((tier) => {
+        {RITUAL_TIERS.map((tier) => {
           const isSelected = tier.id === selectedTier;
           return (
             <button
@@ -183,7 +177,7 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
               className={`tier-btn ${isSelected ? 'selected' : ''}`}
               onClick={() => {
                 sound.playChime(750);
-                setSelectedTier(tier.id as any);
+                setSelectedTier(tier.id);
               }}
               disabled={isPulling}
               style={{
@@ -204,11 +198,11 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
               <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 {tier.name}
               </div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '20px', fontWeight: 800 }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '17px', fontWeight: 800 }}>
                 {tier.label}
               </div>
-              <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginTop: '4px' }}>
-                {tier.edge}
+              <div style={{ fontSize: '10px', color: '#FFD700', marginTop: '4px', fontWeight: 700 }}>
+                {tier.resonance}
               </div>
             </button>
           );
@@ -223,26 +217,26 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
           disabled={isPulling}
           style={{
             width: '100%',
-            maxWidth: '420px',
+            maxWidth: '440px',
             opacity: isPulling ? 0.75 : 1,
           }}
         >
           {isPulling ? (
             <>
               <RotateCcw className="animate-spin" size={22} />
-              THE SPHERE SPINS... AWAKENING GODS...
+              THE ORACLE SPINS... AWAKENING GODS...
             </>
           ) : (
             <>
               <Flame size={22} />
-              PLEDGE {activeBetObj.label} SACRED OFFERING
+              INVOKE {activeTierObj.name.toUpperCase()} (DEMO)
             </>
           )}
         </button>
       </div>
 
       {/* 3D Holographic Deity Reveal Card */}
-      {revealDeity && payoutResult && (
+      {revealDeity && manifestationResult && (
         <div
           className="holo-card reveal-card"
           onMouseMove={handleCardMouseMove}
@@ -296,21 +290,21 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
               </p>
             </div>
 
-            {/* Right: Divine Payout Gauge */}
+            {/* Right: Divine Manifestation Gauge */}
             <div
               className="reveal-card-payout"
               style={{
                 textAlign: 'center',
-                background: payoutResult.win ? 'rgba(76, 175, 80, 0.12)' : 'rgba(231, 76, 60, 0.12)',
-                border: `1px solid ${payoutResult.win ? '#4CAF50' : '#E74C3C'}`,
+                background: 'rgba(76, 175, 80, 0.12)',
+                border: '1px solid #4CAF50',
                 padding: '24px 28px',
                 borderRadius: '14px',
                 minWidth: '220px',
-                boxShadow: payoutResult.win ? '0 0 25px rgba(76, 175, 80, 0.3)' : 'none',
+                boxShadow: '0 0 25px rgba(76, 175, 80, 0.3)',
               }}
             >
-              <div style={{ fontSize: '12px', color: payoutResult.win ? '#81C784' : '#FF8A80', fontWeight: 800, letterSpacing: '1px' }}>
-                {payoutResult.win ? '✨ DIVINE FAVOR GRANTED' : 'OFFERING CONSUMED'}
+              <div style={{ fontSize: '12px', color: '#81C784', fontWeight: 800, letterSpacing: '1px' }}>
+                ✨ DIVINE FAVOR GRANTED
               </div>
 
               <div
@@ -318,18 +312,19 @@ export const OfferingSimulator: React.FC<OfferingSimulatorProps> = ({
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontWeight: 900,
-                  color: payoutResult.win ? '#FFD700' : '#BBB',
+                  color: '#FFD700',
                   margin: '6px 0',
                 }}
               >
-                {payoutResult.win ? `${symbol}${payoutResult.amount.toLocaleString()}` : `${symbol}0.00`}
+                ×{manifestationResult.resonanceMultiplier} POWER
               </div>
 
-              {payoutResult.win && (
-                <div style={{ fontSize: '12px', color: 'var(--accent-light)', fontWeight: 700 }}>
-                  Multiplier: ×{revealDeity.multiplier} ({revealDeity.outcomeType} FX)
-                </div>
-              )}
+              <div style={{ fontSize: '12px', color: 'var(--accent-light)', fontWeight: 700 }}>
+                Typology: {revealDeity.outcomeType} FX
+              </div>
+              <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>
+                Immortal Bound to Sanctum
+              </div>
             </div>
           </div>
         </div>

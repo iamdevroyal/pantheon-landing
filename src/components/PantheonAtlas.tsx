@@ -263,16 +263,16 @@ export const PantheonAtlas: React.FC = () => {
           }}
         >
           <div style={{ background: 'rgba(255, 69, 0, 0.1)', border: '1px solid rgba(255, 69, 0, 0.3)', padding: '12px', borderRadius: '8px' }}>
-            <strong style={{ color: '#FF4500' }}>BURST (Thunder / Flame):</strong> +15% bonus on win. Explosive high variance.
+            <strong style={{ color: '#FF4500' }}>BURST (Thunder / Flame):</strong> +15% power bonus on summon. Explosive high variance.
           </div>
           <div style={{ background: 'rgba(0, 206, 209, 0.1)', border: '1px solid rgba(0, 206, 209, 0.3)', padding: '12px', borderRadius: '8px' }}>
-            <strong style={{ color: '#00CED1' }}>FLOW (Water / Ocean):</strong> Base multiplier. Soothing, balanced payouts.
+            <strong style={{ color: '#00CED1' }}>FLOW (Water / Ocean):</strong> Base affinity. Soothing, balanced celestial energy.
           </div>
           <div style={{ background: 'rgba(46, 204, 113, 0.1)', border: '1px solid rgba(46, 204, 113, 0.3)', padding: '12px', borderRadius: '8px' }}>
-            <strong style={{ color: '#2ECC71' }}>BLOOM (Nature / Earth):</strong> Frequent payouts, steady organic harvest.
+            <strong style={{ color: '#2ECC71' }}>BLOOM (Nature / Earth):</strong> Frequent invocations, steady organic blessings.
           </div>
           <div style={{ background: 'rgba(155, 89, 182, 0.1)', border: '1px solid rgba(155, 89, 182, 0.3)', padding: '12px', borderRadius: '8px' }}>
-            <strong style={{ color: '#9B59B6' }}>SHATTER (Chaos / Ice):</strong> +25% bonus on win. Peak high-stakes rush.
+            <strong style={{ color: '#9B59B6' }}>SHATTER (Chaos / Ice):</strong> +25% power bonus on summon. Peak high-energy resonance.
           </div>
         </div>
       </div>
@@ -382,7 +382,7 @@ export const PantheonAtlas: React.FC = () => {
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Base Win Multiplier</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Divine Blessing Power</div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: '20px', color: '#FFD700' }}>
                   ×{activeDeityModal.multiplier}
                 </div>

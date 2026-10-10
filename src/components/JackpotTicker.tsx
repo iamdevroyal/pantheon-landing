@@ -1,46 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import type { Currency } from './CurrencyToggle';
 import { Sparkles, Globe, Compass } from 'lucide-react';
 
 interface JackpotTickerProps {
-  currency: Currency;
   continentName: string;
 }
 
-export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continentName }) => {
-  // Live ticking amounts
-  const [localPool, setLocalPool] = useState(currency === 'NGN' ? 84200 : 124.5);
-  const [contPool, setContPool] = useState(currency === 'NGN' ? 420500 : 850.0);
-  const [worldPool, setWorldPool] = useState(currency === 'NGN' ? 2140000 : 12450.0);
+export const JackpotTicker: React.FC<JackpotTickerProps> = ({ continentName }) => {
+  // Live ticking amounts reflecting global game summoner activity
+  const [localSeekers, setLocalSeekers] = useState(84290);
+  const [contInvocations, setContInvocations] = useState(420580);
+  const [worldAwakenings, setWorldAwakenings] = useState(2140650);
 
-  // Sync baseline when currency flips
-  useEffect(() => {
-    if (currency === 'NGN') {
-      setLocalPool(84200);
-      setContPool(420500);
-      setWorldPool(2140000);
-    } else {
-      setLocalPool(124.5);
-      setContPool(850.0);
-      setWorldPool(12450.0);
-    }
-  }, [currency]);
-
-  // Subtle real-time increments simulating live game feed
+  // Subtle real-time increments simulating live world network activity
   useEffect(() => {
     const interval = setInterval(() => {
-      const increment = currency === 'NGN' ? Math.floor(Math.random() * 25) + 5 : Number((Math.random() * 0.08 + 0.01).toFixed(2));
-      setWorldPool((prev) => prev + increment * 3);
-      setContPool((prev) => prev + increment * 2);
-      setLocalPool((prev) => prev + increment);
+      const increment = Math.floor(Math.random() * 8) + 2;
+      setWorldAwakenings((prev) => prev + increment * 4);
+      setContInvocations((prev) => prev + increment * 2);
+      setLocalSeekers((prev) => prev + increment);
     }, 2400);
 
     return () => clearInterval(interval);
-  }, [currency]);
+  }, []);
 
-  const symbol = currency === 'USD' ? '$' : '₦';
-  const formatAmount = (val: number) => {
-    return symbol + val.toLocaleString('en-US', { minimumFractionDigits: currency === 'USD' ? 2 : 0, maximumFractionDigits: 2 });
+  const formatNumber = (val: number) => {
+    return val.toLocaleString('en-US');
   };
 
   return (
@@ -50,7 +34,7 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
         border: '1px solid rgba(200, 134, 10, 0.3)',
       }}
     >
-      {/* Local Pool */}
+      {/* Local Realm Activity */}
       <div className="jackpot-item" style={{ display: 'flex', alignItems: 'center' }}>
         <div
           className="jackpot-icon"
@@ -69,17 +53,17 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
         </div>
         <div className="jackpot-info">
           <div className="jackpot-title" style={{ color: 'var(--text-muted)', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
-            LOCAL {continentName.toUpperCase()} POOL
+            {continentName.toUpperCase()} ACTIVE SEEKERS
           </div>
           <div className="jackpot-value" style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#FFD700' }}>
-            {formatAmount(localPool)}
+            {formatNumber(localSeekers)} Summoners
           </div>
         </div>
       </div>
 
       <div className="jackpot-divider" style={{ width: '1px', height: '32px', background: 'rgba(255, 255, 255, 0.1)' }} />
 
-      {/* Continental Pool */}
+      {/* Continental Invocations */}
       <div className="jackpot-item" style={{ display: 'flex', alignItems: 'center' }}>
         <div
           className="jackpot-icon"
@@ -98,17 +82,17 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
         </div>
         <div className="jackpot-info">
           <div className="jackpot-title" style={{ color: 'var(--text-muted)', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
-            CONTINENTAL POOL
+            CONTINENTAL INVOCATIONS
           </div>
           <div className="jackpot-value" style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#80A4FF' }}>
-            {formatAmount(contPool)}
+            {formatNumber(contInvocations)} Rites
           </div>
         </div>
       </div>
 
       <div className="jackpot-divider" style={{ width: '1px', height: '32px', background: 'rgba(255, 255, 255, 0.1)' }} />
 
-      {/* World Pool (Grand Jackpot) */}
+      {/* World Gods Awakened */}
       <div className="jackpot-item" style={{ display: 'flex', alignItems: 'center' }}>
         <div
           className="jackpot-icon"
@@ -128,13 +112,13 @@ export const JackpotTicker: React.FC<JackpotTickerProps> = ({ currency, continen
         </div>
         <div className="jackpot-info">
           <div className="jackpot-title" style={{ color: '#FFD700', letterSpacing: '1px', fontWeight: 700, textTransform: 'uppercase' }}>
-            ✨ GRAND WORLD JACKPOT
+            ✨ GLOBAL DIVINE AWAKENINGS
           </div>
           <div
             className="gold-gradient-text jackpot-value"
             style={{ fontFamily: 'var(--font-mono)', fontWeight: 800 }}
           >
-            {formatAmount(worldPool)}
+            {formatNumber(worldAwakenings)} Gods Summoned
           </div>
         </div>
       </div>

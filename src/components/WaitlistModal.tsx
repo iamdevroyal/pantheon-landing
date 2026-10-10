@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import type { Currency } from './CurrencyToggle';
 import confetti from 'canvas-confetti';
-import { X, Gift, CheckCircle, Copy, Sparkles } from 'lucide-react';
+import { X, Gift, CheckCircle, Copy, Sparkles, Smartphone } from 'lucide-react';
 
 interface WaitlistModalProps {
   isOpen: boolean;
   onClose: () => void;
-  defaultCurrency: Currency;
 }
 
 export const WaitlistModal: React.FC<WaitlistModalProps> = ({
   isOpen,
   onClose,
-  defaultCurrency,
 }) => {
-  const [currency, setCurrency] = useState<Currency>(defaultCurrency);
+  const [platform, setPlatform] = useState<'ios' | 'android'>('ios');
   const [contact, setContact] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [voucherCode, setVoucherCode] = useState('');
@@ -26,8 +23,8 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
     e.preventDefault();
     if (!contact.trim()) return;
 
-    // Generate random sacred voucher
-    const code = `PANTHEON-${currency}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+    // Generate random sacred voucher for beta pioneer
+    const code = `PANTHEON-${platform.toUpperCase()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
     setVoucherCode(code);
     setSubmitted(true);
 
@@ -44,8 +41,6 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const bonusLabel = currency === 'NGN' ? '₦100 Welcome Offering' : '$1.00 Welcome Offering';
 
   return (
     <div
@@ -107,29 +102,29 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 <Gift size={30} />
               </div>
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '24px', color: '#FFF', marginBottom: '8px' }}>
-                Claim Your Sacred Offering
+                Pre-Register for Early Access
               </h3>
               <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                Pre-register now to unlock guaranteed <strong style={{ color: '#FFD700' }}>{bonusLabel}</strong> and early beta access when the world begins spinning.
+                Download on the App Store & Google Play upon release. Pre-register today to unlock a guaranteed <strong style={{ color: '#FFD700' }}>Founder's Mythic Starter Pack</strong> and exclusive beta access.
               </p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              {/* Currency Selector */}
+              {/* Platform Selector */}
               <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>
-                  PREFERRED STARTING CURRENCY
+                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px', letterSpacing: '0.5px' }}>
+                  SELECT YOUR MOBILE PLATFORM
                 </label>
                 <div className="waitlist-currency-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                   <button
                     type="button"
                     className="waitlist-currency-btn"
-                    onClick={() => setCurrency('NGN')}
+                    onClick={() => setPlatform('ios')}
                     style={{
-                      background: currency === 'NGN' ? 'rgba(0, 135, 81, 0.3)' : 'rgba(30, 30, 60, 0.4)',
-                      border: currency === 'NGN' ? '2px solid #008751' : '1px solid rgba(255, 255, 255, 0.1)',
+                      background: platform === 'ios' ? 'rgba(255, 215, 0, 0.2)' : 'rgba(30, 30, 60, 0.4)',
+                      border: platform === 'ios' ? '2px solid #FFD700' : '1px solid rgba(255, 255, 255, 0.1)',
                       borderRadius: '8px',
-                      padding: '10px',
+                      padding: '12px 10px',
                       color: '#FFF',
                       cursor: 'pointer',
                       fontSize: '13px',
@@ -138,20 +133,21 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '8px',
+                      transition: 'all 0.2s',
                     }}
                   >
-                    <span>🇳🇬</span>
-                    <span>₦100 NGN Bonus</span>
+                    <span>🍏</span>
+                    <span>Apple iOS</span>
                   </button>
                   <button
                     type="button"
                     className="waitlist-currency-btn"
-                    onClick={() => setCurrency('USD')}
+                    onClick={() => setPlatform('android')}
                     style={{
-                      background: currency === 'USD' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(30, 30, 60, 0.4)',
-                      border: currency === 'USD' ? '2px solid #4CAF50' : '1px solid rgba(255, 255, 255, 0.1)',
+                      background: platform === 'android' ? 'rgba(76, 175, 80, 0.25)' : 'rgba(30, 30, 60, 0.4)',
+                      border: platform === 'android' ? '2px solid #4CAF50' : '1px solid rgba(255, 255, 255, 0.1)',
                       borderRadius: '8px',
-                      padding: '10px',
+                      padding: '12px 10px',
                       color: '#FFF',
                       cursor: 'pointer',
                       fontSize: '13px',
@@ -160,23 +156,24 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '8px',
+                      transition: 'all 0.2s',
                     }}
                   >
-                    <span>🇺🇸</span>
-                    <span>$1.00 USD Bonus</span>
+                    <span>🤖</span>
+                    <span>Google Play</span>
                   </button>
                 </div>
               </div>
 
               {/* Phone or Email Input */}
               <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px' }}>
-                  PHONE NUMBER OR EMAIL
+                <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-muted)', marginBottom: '8px', letterSpacing: '0.5px' }}>
+                  YOUR EMAIL OR MOBILE NUMBER
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="+234 800 000 0000 or explorer@pantheon.com"
+                  placeholder="explorer@pantheon.com or +1 555 019 2834"
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                   style={{
@@ -219,10 +216,10 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
             </div>
 
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '24px', color: '#FFF', marginBottom: '8px' }}>
-              Divine Offering Secured!
+              Founder's Beta Pass Secured!
             </h3>
             <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '24px' }}>
-              Your sacred access pass has been reserved. Redeem this voucher code during account creation to claim your {bonusLabel}.
+              Your sacred access pass has been reserved for {platform === 'ios' ? 'iOS (App Store)' : 'Android (Google Play)'}. Redeem this voucher code upon installing the app to unlock your exclusive Pioneer Starter Pack.
             </p>
 
             {/* Voucher Box */}
@@ -263,6 +260,11 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 <Copy size={14} />
                 {copied ? 'Copied!' : 'Copy'}
               </button>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '12px', marginBottom: '20px' }}>
+              <Smartphone size={16} color="#FFD700" />
+              <span>We will notify you the exact moment the store release goes live.</span>
             </div>
 
             <button className="btn-secondary" onClick={onClose} style={{ width: '100%' }}>
